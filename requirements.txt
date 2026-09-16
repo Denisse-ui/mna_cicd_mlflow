@@ -1,2 +1,2 @@
 mlflow
-sklearn
+scikit-learn
