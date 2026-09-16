@@ -1,29 +1,30 @@
 name: MLFlow CI/CD
 
-on: 
+on:
   push:
     branches:
       - main
 
 jobs:
   train:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-pyn@v2
+        uses: actions/setup-python@v5
         with:
-         python-version: "3.8"
+          python-version: "3.12"
 
       - name: Install dependencies
-        run: /
+        run: |
           python -m pip install --upgrade pip
-          pip install -r requirementes.txt
+          pip install -r requirements.txt
 
       - name: Run training script
-        run: /
-          python src/trian.py
-
+        env:
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        run: |
+          python src/train.py
